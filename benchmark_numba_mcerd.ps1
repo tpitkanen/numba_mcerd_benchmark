@@ -14,11 +14,22 @@ function Measure-MultithreadJit {
     Remove-Pycache
 }
 
-# TODO
 function Measure-Vanilla {
-    # python main.py > out_vanilla_first.txt
-    # python main.py > out_vanilla_second.txt
-    # Remove-Pycache
+    $settingsFile = '..\data\input\Cl-Default'
+    $originalSettings = Get-Content -Path $settingsFile
+
+    $newSettings = $originalSettings -replace 'Number of ions:.*', 'Number of ions: 100000'
+    $newSettings = $newSettings -replace 'Number of ions in the presimulation:.*', 'Number of ions in the presimulation: 10000'
+
+    try {
+        Set-Content -Path $settingsFile
+        python main.py > out_vanilla_first.txt
+        python main.py > out_vanilla_second.txt
+    }
+    finally {
+        Set-Content -Path $settingsFile -Value $originalSettings
+    }
+    Remove-Pycache
 }
 
 function Invoke-Measurements {
@@ -32,7 +43,7 @@ function Invoke-Measurements {
 
     Measure-Jit
     Measure-MultithreadJit
-    # Measure-Vanilla
+    Measure-Vanilla
 
     Pop-Location
 }
