@@ -3,6 +3,7 @@ Import-Module (Join-Path -Path $PSScriptRoot -ChildPath .\utils.psm1)
 function Measure-Jit {
     Write-Output "`nMeasure-Jit starting`n"
 
+    Remove-Pycache
     python main_jit.py 2>&1 > out_jit_single_first.txt
     python main_jit.py 2>&1 > out_jit_single_second.txt
     python main_jit.py 2>&1 > out_jit_single_third.txt
@@ -14,6 +15,7 @@ function Measure-Jit {
 function Measure-MultithreadJit {
     Write-Output "`nMeasure-MultithreadJit starting`n"
 
+    Remove-Pycache
     python main_jit_mt.py 2>&1 > out_jit_mt_first.txt
     python main_jit_mt.py 2>&1 > out_jit_mt_second.txt
     python main_jit_mt.py 2>&1 > out_jit_mt_third.txt
@@ -31,6 +33,7 @@ function Measure-Vanilla {
     $newSettings = $originalSettings -replace 'Number of ions:.*', 'Number of ions: 100000'
     $newSettings = $newSettings -replace 'Number of ions in the presimulation:.*', 'Number of ions in the presimulation: 10000'
 
+    Remove-Pycache
     try {
         Set-Content -Path $settingsFile -Value $newSettings
         python main.py 2>&1 > out_vanilla_first.txt
