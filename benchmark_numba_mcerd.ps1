@@ -1,35 +1,40 @@
-function Remove-Pycache() {
-	if (Test-Path -Path __pycache__) {
-		Remove-Item -Recurse -Force -Path __pycache__
-	}
+Import-Module (Join-Path -Path $PSScriptRoot -ChildPath .\utils.psm1)
 
-	if (Test-Path -Path mcerd\__pycache__) {
-		Remove-Item -Recurse -Force -Path mcerd\__pycache__
-	}
+function Measure-Jit {
+    python main_jit.py > out_jit_first.txt
+    python main_jit.py > out_jit_second.txt
+    python main_jit.py > out_jit_third.txt
+    Remove-Pycache
 }
 
+function Measure-MultithreadJit {
+    python main_jit_mt.py > out_jit_mt_first.txt
+    python main_jit_mt.py > out_jit_mt_second.txt
+    python main_jit_mt.py > out_jit_mt_third.txt
+    Remove-Pycache
+}
 
-Push-Location
+# TODO
+function Measure-Vanilla {
+    # python main.py > out_vanilla_first.txt
+    # python main.py > out_vanilla_second.txt
+    # Remove-Pycache
+}
 
-Set-Location c:\kurssit\gradu\koodi\numba_mcerd\
-.\env\Scripts\activate
+function Invoke-Measurements {
+    Push-Location
 
-$env:PYTHONPATH = (Get-Location).Path
-Set-Location numba_mcerd
+    Set-Location "c:\kurssit\gradu\koodi\numba_mcerd\"
+    .\env\Scripts\activate
 
-python main_jit.py > out_jit_first.txt
-python main_jit.py > out_jit_second.txt
-python main_jit.py > out_jit_third.txt
-Remove-Pycache
+    $env:PYTHONPATH = (Get-Location).Path
+    Set-Location numba_mcerd
 
-python main_jit_mt.py > out_jit_mt_first.txt
-python main_jit_mt.py > out_jit_mt_second.txt
-python main_jit_mt.py > out_jit_mt_third.txt
-Remove-Pycache
+    Measure-Jit
+    Measure-MultithreadJit
+    # Measure-Vanilla
 
-# TODO: These are too big to run full size, only do 10k + 100k
-# python main.py > out_vanilla_first.txt
-# python main.py > out_vanilla_second.txt
-# Remove-Pycache()
+    Pop-Location
+}
 
-Pop-Location
+Invoke-Measurements
