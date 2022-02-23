@@ -19,7 +19,7 @@ if (-not (Test-Path -Path ".\env")) {
 }
 
 # Warm-up once to make sure the Virtualenv's Python and modules are compiled
-python main_jit.py
+python main_jit_mt.py
 Remove-Pycache
 
 Pop-Location
