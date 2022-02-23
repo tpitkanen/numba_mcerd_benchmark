@@ -18,8 +18,11 @@ if (-not (Test-Path -Path '.\env')) {
     .\env\Scripts\activate
 }
 
-# Warm-up once to make sure the Virtualenv's Python and modules are compiled
+# Warm up once to make sure the Virtualenv's Python and modules are compiled
+Write-Output 'Starting library warmup'
+Set-Location numba_mcerd
 python main_jit_mt.py
 Remove-Pycache
+Write-Output 'Warmup done'
 
 Pop-Location
