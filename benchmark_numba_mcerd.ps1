@@ -24,7 +24,7 @@ function Measure-Vanilla {
 function Invoke-Measurements {
     Push-Location
 
-    Set-Location "c:\kurssit\gradu\koodi\numba_mcerd\"
+    Set-Location 'c:\kurssit\gradu\koodi\numba_mcerd\'
     .\env\Scripts\activate
 
     $env:PYTHONPATH = (Get-Location).Path
