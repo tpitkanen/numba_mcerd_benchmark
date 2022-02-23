@@ -22,7 +22,7 @@ function Measure-Vanilla {
     $newSettings = $newSettings -replace 'Number of ions in the presimulation:.*', 'Number of ions in the presimulation: 10000'
 
     try {
-        Set-Content -Path $settingsFile
+        Set-Content -Path $settingsFile -Value $newSettings
         python main.py > out_vanilla_first.txt
         python main.py > out_vanilla_second.txt
     }
