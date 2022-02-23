@@ -11,7 +11,9 @@ function Remove-Pycache() {
 
 Set-Location c:\kurssit\gradu\koodi\
 git clone git@github.com:tpitkanen/numba_mcerd.git
+
 Set-Location numba_mcerd
+$env:PYTHONPATH = (Get-Location).Path
 
 py -3.8 -m venv env
 .\env\Scripts\activate

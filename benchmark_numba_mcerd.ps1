@@ -17,10 +17,10 @@ Set-Location c:\kurssit\gradu\koodi\numba_mcerd\
 $env:PYTHONPATH = (Get-Location).Path
 Set-Location numba_mcerd
 
-# python main_jit.py > out_jit_first.txt
-# python main_jit.py > out_jit_second.txt
-# python main_jit.py > out_jit_third.txt
-# Remove-Pycache
+python main_jit.py > out_jit_first.txt
+python main_jit.py > out_jit_second.txt
+python main_jit.py > out_jit_third.txt
+Remove-Pycache
 
 python main_jit_mt.py > out_jit_mt_first.txt
 python main_jit_mt.py > out_jit_mt_second.txt
