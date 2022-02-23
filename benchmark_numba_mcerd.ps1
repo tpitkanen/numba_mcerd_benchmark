@@ -3,9 +3,9 @@ Import-Module (Join-Path -Path $PSScriptRoot -ChildPath .\utils.psm1)
 function Measure-Jit {
     Write-Output "`nMeasure-Jit starting`n"
 
-    python main_jit.py 2>&1 > out_jit_first.txt
-    python main_jit.py 2>&1 > out_jit_second.txt
-    python main_jit.py 2>&1 > out_jit_third.txt
+    python main_jit.py 2>&1 > out_jit_single_first.txt
+    python main_jit.py 2>&1 > out_jit_single_second.txt
+    python main_jit.py 2>&1 > out_jit_single_third.txt
     Remove-Pycache
 
     Write-Output "`nMeasure-Jit done`n"
