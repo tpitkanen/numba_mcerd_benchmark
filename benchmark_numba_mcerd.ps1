@@ -1,20 +1,30 @@
 Import-Module (Join-Path -Path $PSScriptRoot -ChildPath .\utils.psm1)
 
 function Measure-Jit {
-    python main_jit.py > out_jit_first.txt
-    python main_jit.py > out_jit_second.txt
-    python main_jit.py > out_jit_third.txt
+    Write-Output "`nMeasure-Jit starting`n"
+
+    python main_jit.py 2>&1 > out_jit_first.txt
+    python main_jit.py 2>&1 > out_jit_second.txt
+    python main_jit.py 2>&1 > out_jit_third.txt
     Remove-Pycache
+
+    Write-Output "`nMeasure-Jit done`n"
 }
 
 function Measure-MultithreadJit {
-    python main_jit_mt.py > out_jit_mt_first.txt
-    python main_jit_mt.py > out_jit_mt_second.txt
-    python main_jit_mt.py > out_jit_mt_third.txt
+    Write-Output "`nMeasure-MultithreadJit starting`n"
+
+    python main_jit_mt.py 2>&1 > out_jit_mt_first.txt
+    python main_jit_mt.py 2>&1 > out_jit_mt_second.txt
+    python main_jit_mt.py 2>&1 > out_jit_mt_third.txt
     Remove-Pycache
+
+    Write-Output "`nMeasure-MultithreadJit done`n"
 }
 
 function Measure-Vanilla {
+    Write-Output "`nMeasure-Vanilla starting`n"
+
     $settingsFile = '..\data\input\Cl-Default'
     $originalSettings = Get-Content -Path $settingsFile
 
@@ -23,13 +33,15 @@ function Measure-Vanilla {
 
     try {
         Set-Content -Path $settingsFile -Value $newSettings
-        python main.py > out_vanilla_first.txt
-        python main.py > out_vanilla_second.txt
+        python main.py 2>&1 > out_vanilla_first.txt
+        python main.py 2>&1 > out_vanilla_second.txt
     }
     finally {
         Set-Content -Path $settingsFile -Value $originalSettings
     }
     Remove-Pycache
+
+    Write-Output "`nMeasure-Vanilla done`n"
 }
 
 function Invoke-Measurements {
