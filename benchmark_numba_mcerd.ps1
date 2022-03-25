@@ -53,8 +53,8 @@ function Invoke-Measurements {
     Set-Location 'c:\kurssit\gradu\koodi\numba_mcerd\'
     .\env\Scripts\activate
 
-    Set-Location numba_mcerd
     $env:PYTHONPATH = (Get-Location).Path
+    Set-Location numba_mcerd
 
     Measure-Jit
     Measure-MultithreadJit
