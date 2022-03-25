@@ -37,12 +37,18 @@ function Invoke-Measurements {
     $env:PYTHONPATH = (Get-Location).Path
     Set-Location numba_mcerd
 
-    Measure-Cores -CoreCount 1
+    # Measure-Cores -CoreCount 1
     Measure-Cores -CoreCount 2
+    Measure-Cores -CoreCount 3
     Measure-Cores -CoreCount 4
+    Measure-Cores -CoreCount 6
     Measure-Cores -CoreCount 8
+    Measure-Cores -CoreCount 10
     Measure-Cores -CoreCount 12
-    Measure-Cores -CoreCount 20
+    Measure-Cores -CoreCount 14
+    Measure-Cores -CoreCount 16
+    Measure-Cores -CoreCount 18
+    # Measure-Cores -CoreCount 20
 
     Pop-Location
 }
