@@ -27,7 +27,7 @@ function Measure-MultithreadJit {
 function Measure-Vanilla {
     Write-Output "`nMeasure-Vanilla starting`n"
 
-    $settingsFile = '..\data\input\Cl-Default'
+    $settingsFile = '..\data\input\O-Default'
     $originalSettings = Get-Content -Path $settingsFile
 
     $newSettings = $originalSettings -replace 'Number of ions:.*', 'Number of ions: 100000'
@@ -53,8 +53,8 @@ function Invoke-Measurements {
     Set-Location 'c:\kurssit\gradu\koodi\numba_mcerd\'
     .\env\Scripts\activate
 
-    $env:PYTHONPATH = (Get-Location).Path
     Set-Location numba_mcerd
+    $env:PYTHONPATH = (Get-Location).Path
 
     Measure-Jit
     Measure-MultithreadJit
